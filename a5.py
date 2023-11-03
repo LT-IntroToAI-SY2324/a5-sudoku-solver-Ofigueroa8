@@ -59,6 +59,8 @@ class Board:
         row_str = ""
         for r in self.rows:
             row_str += f"{r}\n"
+            row_str += "\n"
+            # REMOVE TOP LINE ABOVE WHEN DONEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 
         return f"num_nums_placed: {self.num_nums_placed}\nboard (rows): \n{row_str}"
 
@@ -125,7 +127,7 @@ class Board:
         Returns:
             True if we've placed all numbers, False otherwise
         """
-        pass
+        return self.num_nums_placed == self.size * self.size
 
     def update(self, row: int, column: int, assignment: int) -> None:
         """Assigns the given value to the cell given by passed in row and column
@@ -139,6 +141,13 @@ class Board:
             column - index of the column to assign
             assignment - value to place at given row, column coordinate
         """
+        self.row[row][column] = assignment
+
+        remove_if_exists(self.row[row], assignment)
+        remove_if_exists()
+
+
+        self.num_nums_placed += 1
         pass
 
 
@@ -174,6 +183,8 @@ def BFS(state: Board) -> Board:
 
 if __name__ == "__main__":
     # uncomment the below lines once you've implemented the board class
+    # b = Board()
+    # print(b)
    
     # # CODE BELOW HERE RUNS YOUR BFS/DFS
     # print("<<<<<<<<<<<<<< Solving Sudoku >>>>>>>>>>>>>>")
