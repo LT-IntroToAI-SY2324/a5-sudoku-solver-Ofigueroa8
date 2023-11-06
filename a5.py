@@ -109,6 +109,13 @@ class Board:
         Returns:
             a tuple of row, column index identifying the most constrained cell
         """
+        count = self.size
+
+        for x in range(self.size):
+            for y in range(self.size):
+                if len(self.rows[x][y]) < count:
+                    count = len(self.rows[x][y])
+
         pass
 
     def failure_test(self) -> bool:
