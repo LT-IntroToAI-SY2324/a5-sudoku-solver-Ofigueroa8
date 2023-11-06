@@ -57,10 +57,11 @@ class Board:
     def __str__(self) -> str:
         """String representation of the board"""
         row_str = ""
+        row_num = 0
         for r in self.rows:
-            row_str += f"{r}\n"
-            row_str += "\n"
-            # REMOVE TOP LINE ABOVE WHEN DONEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            row_str += f"row {row_num}: {r} \n\n"
+            row_num += 1
+            
 
         return f"num_nums_placed: {self.num_nums_placed}\nboard (rows): \n{row_str}"
 
@@ -141,14 +142,17 @@ class Board:
             column - index of the column to assign
             assignment - value to place at given row, column coordinate
         """
-        self.row[row][column] = assignment
-
-        remove_if_exists(self.row[row], assignment)
-        remove_if_exists()
-
-
+        self.rows[row][column] = assignment
         self.num_nums_placed += 1
-        pass
+
+        for i in range(self.size):
+            remove_if_exists(self.rows[row][i], assignment)
+            remove_if_exists(self.rows[i][column], assignment)
+        
+
+        for i, j in self.subgrid_coordinates(row, column):
+            remove_if_exists(self.rows[i][j], assignment)
+
 
 
 def DFS(state: Board) -> Board:
@@ -183,8 +187,15 @@ def BFS(state: Board) -> Board:
 
 if __name__ == "__main__":
     # uncomment the below lines once you've implemented the board class
-    # b = Board()
+    b = Board()
     # print(b)
+    # b.print_pretty()
+
+    b.update(0, 0, 4)
+    b.update(0, 5, 3)
+    b.update(7, 1, 9)
+    b.print_pretty()
+    print(b)
    
     # # CODE BELOW HERE RUNS YOUR BFS/DFS
     # print("<<<<<<<<<<<<<< Solving Sudoku >>>>>>>>>>>>>>")
@@ -336,4 +347,4 @@ if __name__ == "__main__":
     # print("<<<<<<<<<<<<<< Testing BFS on Second Game >>>>>>>>>>>>>>")
 
     # test_dfs_or_bfs(False, second_moves)
-    pass
+    
