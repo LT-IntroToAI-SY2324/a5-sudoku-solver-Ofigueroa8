@@ -180,11 +180,28 @@ def DFS(state: Board) -> Board:
     Args:
         state - an instance of the Board class to solve, need to find most constrained
             cell and attempt an assignment
-
+            
     Returns:
         either None in the case of invalid input or a solved board
     """
-    pass
+    the_stack = Stack([state])
+
+    while not the_stack.is_empty():
+        curr = the_stack.pop()
+        if curr.goal_test():
+            return curr
+        elif not curr.failure_test():
+            row, col = curr.find_most_constrained_cell()
+            for sel in curr.rows[row][col]:
+                # Create copy of board
+                cpy = copy.deepcopy(curr)
+                cpy.update(row, col, sel)
+                the_stack.push(cpy)
+
+    return None
+
+            # curr.update(row, col, sel[0])
+            # the_stack.push(curr)
 
 
 def BFS(state: Board) -> Board:
@@ -334,22 +351,23 @@ if __name__ == "__main__":
     for trip in first_moves:
         g.update(trip[0],trip[1],trip[2])
     g.print_pretty()
-
+    sol = DFS(g)
+    sol.print_pretty()
     
     #From the above print statement, you can see which numbers
     #  have been assigned to the board, and then create test
     #  cases by looking at the board and listing what values are
     #  still possible for a specific cell. I have created
-    #  2 such test cases like that for you. 
-    assert g.rows[0][2] == [2,5,6], "update test 1"
-    assert g.rows[5][5] == [3,7,9], "update test 2"
-    assert g.num_nums_placed == 28, "update test 3"
-    assert g.find_most_constrained_cell() == (1,7), "fmc test"
-    assert g.failure_test() == False, "failure test test"
-    assert g.goal_test() == False, "goal test test"
-    g.num_nums_placed = 81
-    assert g.goal_test() == True, "goal test test"
-    print("All part 2 tests passed! Testing DFS and BFS next:")
+    # #  2 such test cases like that for you. 
+    # assert g.rows[0][2] == [2,5,6], "update test 1"
+    # assert g.rows[5][5] == [3,7,9], "update test 2"
+    # assert g.num_nums_placed == 28, "update test 3"
+    # assert g.find_most_constrained_cell() == (1,7), "fmc test"
+    # assert g.failure_test() == False, "failure test test"
+    # assert g.goal_test() == False, "goal test test"
+    # g.num_nums_placed = 81
+    # assert g.goal_test() == True, "goal test test"
+    # print("All part 2 tests passed! Testing DFS and BFS next:")
 
     # print("<<<<<<<<<<<<<< Testing DFS on First Game >>>>>>>>>>>>>>")
 
