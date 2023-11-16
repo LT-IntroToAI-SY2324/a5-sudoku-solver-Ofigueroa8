@@ -31,5 +31,5 @@ DFS would be more effective on solving a board that has more choices while BFS w
 
 
 3. Considering the current implementation, how might the Sudoku solver be adapted or extended for larger puzzles or different types of grid-based logic games? How can the lessons learned from this assignment be applied to real-world problem-solving or optimization challenges?
-I think that the Sudoku solver could be adapted to a grid based logic game just through using BFS or DFS. A game like Minesweeper would seem to probably benefit from BFS as the board doesn't necessarily seem complex so finding a solution wouldn't seem too hard.
+I think that the Sudoku solver could be adapted to a grid based logic game just through using BFS or DFS. A game like Minesweeper would seem to probably benefit from BFS as the board doesn't necessarily seem complex so finding a solution wouldn't seem too deep. In a real world application, it might be beneficial to think about using a DFS type of method in solving a problem. Most people subconsciously (myself included) probably do BFS and using DFS could be advantageous for certain problems as not everything can be solved efficiently through a single method.
 
